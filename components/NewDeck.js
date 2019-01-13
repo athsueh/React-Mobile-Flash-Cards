@@ -15,10 +15,7 @@ class NewDeck extends Component {
   getDecks() {
     AsyncStorage.getItem(DECK_KEY).then((decks) => {
         if (decks !== null){
-            console.log("now getting decks")
             let d = JSON.parse(decks)
-            console.log(d)
-            console.log("these are the decks")
             this.setState({decks:d})
         } else { 
             console.warn("Looks like something went wrong with getting decks. Try reloading.")
@@ -28,19 +25,6 @@ class NewDeck extends Component {
   }
 
   componentDidMount() {
-    console.log("state of decks", this.state.decks)
-    //getDecks().then((decks) => this.setState({decks}, () => console.log("After setState: ", this.state.decks))
-    //getDecks().then((decks) => console.log("whomst", decks)      )
-    //getDecks().then((decks) => console.log("whomst", decks))
-    
-    console.log("erwerewqer")
-
-    // AsyncStorage.getItem('FlashCards:decks').then((decks) => {
-    //   if (decks !== null){
-    //     console.log(JSON.parse(decks))
-
-    //   }})
-    
     this.getDecks()  
     this.setState({ isMounted: true })
   }
@@ -49,7 +33,6 @@ class NewDeck extends Component {
   }
 
   onPressButton = async () => {
-    //console.log("we",this.props.navigation.state.params.title," was: ",this.state.question, "kangz: ", this.state.answer)
     let decks = this.state.decks
     let title = this.state.title
 
@@ -59,20 +42,8 @@ class NewDeck extends Component {
             questions: []
         }
     }    
-    console.log(decks)
-    console.log(newDeck)
-    //console.log("hmm: ",decks+newDeck)
-    //console.log("eaw: ",JSON.stringify(newDeck))
-
     await AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(newDeck));
-    console.log("merged")
-
-    // decks[deckTitle].questions.push(card)        
-    // //await AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks)).then(console.log("done, ",decks))
-    // await AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks)).then(
-    //     this.props.navigation.navigate('DeckView',{title: deckTitle, count: decks[deckTitle].questions.length}),
-    //     console.log("should look like: ",decks)
-    // )
+   
     this.props.navigation.navigate('DeckView',{title, count: 0})
 }
   
@@ -92,11 +63,7 @@ class NewDeck extends Component {
                 <Text style={styles.clickable}>Create Deck</Text>
             </TouchableOpacity>
             </View>}
-        </View>
-        
-//The view includes a form for creating a new deck - which should just be an input for the title and a 'Create Deck' button.
-
-//Pressing the button correctly creates the deck and routes the user to the Individual Deck view for the new deck.
+        </View>    
       )
     }
   }

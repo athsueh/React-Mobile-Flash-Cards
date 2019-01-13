@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Platform, StatusBar, StyleSheet } from 'react-native'
 import { createBottomTabNavigator, createStackNavigator, createAppContainer  } from 'react-navigation'
 import { purple, white } from './utils/colors'
-import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { setLocalNotification, generateDecks, clearLocalNotification } from './utils/helpers'
 import DeckList from './components/DeckList'
@@ -105,8 +105,6 @@ export default class App extends React.Component {
     )
   }
 }
-
-//display mapped decks
 
 const styles = StyleSheet.create({
   container: {

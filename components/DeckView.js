@@ -7,7 +7,6 @@ class DeckView extends Component {
       deck: '',
     }
     onPressButton = () => {
-        //console.log("hehe: ", this.props.title)
         if (this.props.navigation.state.params.count === 0){
         Alert.alert('You cannot start a quiz with 0 question deck.')
         }
@@ -17,13 +16,10 @@ class DeckView extends Component {
     }
 
     onPressButton2 = () => {
-        console.log("hehe: ", this.props.navigation.state.params.title)
-
         this.props.navigation.navigate('NewQuestion',{title: this.props.navigation.state.params.title})
     }
     
     render() {
-        //console.log(this.props.navigation.state.params.count)
       return (
         <View style={styles.container}>
           <Text style={styles.heading}>Title: {this.props.navigation.state.params.title}</Text>
@@ -35,10 +31,6 @@ class DeckView extends Component {
             <Text style={styles.clickable}>Click to Add a Card to Deck</Text>
           </TouchableOpacity>
         </View>
-        // The deck title
-        // Number of cards in the deck
-        // Option to start a quiz for that deck
-        // Option to add a new question to the deck
       )
     }
   }
@@ -84,6 +76,5 @@ const styles = StyleSheet.create({
       paddingBottom: 20
     }
   })
-
   
   export default DeckView

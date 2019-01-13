@@ -8,25 +8,15 @@ class Deck extends Component {
     }
 
     onPressButton = () => {
-        console.log("hehe: ", this.props.title)
-        //Alert.alert('You tapped the button!')
-
         this.props.navigation.navigate('DeckView',{title: this.props.title, count: this.props.count})
     }
     
-    render() {
-        
+    render() {      
         let title = this.props.title
-        console.log(title)
-
-        
       return (
-          //<Text style={{color: purple, fontSize: 25}}>{title}</Text>
         <TouchableOpacity onPress={this.onPressButton} underlayColor="white">
             <Text style={{color: purple, fontSize: 50}}>{title}</Text>
         </TouchableOpacity>
-        //display deck name, number of cards
-        // clicking on a deck should bring it to the deck view
       )
     }
   }
@@ -61,6 +51,5 @@ const styles = StyleSheet.create({
       paddingBottom: 20
     }
   })
-
 
   export default Deck

@@ -5,7 +5,6 @@ import { AsyncStorage } from 'react-native';
 
 const DECK_KEY = 'FlashCards:decks'
 
-
 class NewQuestion extends Component {
     state = {
         question: '',
@@ -17,10 +16,7 @@ class NewQuestion extends Component {
     getDecks() {
         AsyncStorage.getItem(DECK_KEY).then((decks) => {
             if (decks !== null){
-                console.log("now getting decks")
                 let d = JSON.parse(decks)
-                console.log(d)
-                console.log("these are the decks")
                 this.setState({decks:d})
             } else { 
                 console.warn("Looks like something went wrong with getting decks. Try reloading.")
@@ -44,23 +40,13 @@ class NewQuestion extends Component {
             'question': question, 
             'answer': answer
         }
-        console.log(decks)
-        console.log("weeew")
-        console.log(decks[deckTitle])
-        console.log("yolo")
-
-        //decks.map(d => d)
         decks[deckTitle].questions.push(card)        
-        //await AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks)).then(console.log("done, ",decks))
         await AsyncStorage.setItem(DECK_KEY, JSON.stringify(decks)).then(
             this.props.navigation.navigate('DeckView',{title: deckTitle, count: decks[deckTitle].questions.length}),
-            console.log("should look like: ",decks)
         )
-       // this.props.navigation.navigate('DeckView',{title: deckTitle, count: 1})
     }
     
     onPressButton = () => {
-        //console.log("we",this.props.navigation.state.params.title," was: ",this.state.question, "kangz: ", this.state.answer)
         this.addCard(this.props.navigation.state.params.title, this.state.question, this.state.answer)           
     }
   
@@ -81,7 +67,6 @@ class NewQuestion extends Component {
           </TouchableOpacity>
         </View>
         
-//quiestion and answer button and submit button
       )
     }
   }

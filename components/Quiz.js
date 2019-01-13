@@ -20,12 +20,8 @@ class Quiz extends Component {
     async getDecks() {
         await AsyncStorage.getItem(DECK_KEY).then((decks) => {
             if (decks !== null){
-                console.log("now getting decks")
                 let d = JSON.parse(decks)
-                console.log(d)
-                console.log("these are the decks")               
                 let cl = d[this.props.navigation.state.params.title].questions.length
-                console.log(cl)
                 this.setState({decks:d})
                 this.setState({cardsLeft:cl})  
                 this.setState({deckLength:cl})         
@@ -46,7 +42,6 @@ class Quiz extends Component {
         let siz = cards.length
         let randIndex = Math.floor(Math.random() * siz)
         let idx = (randIndex + this.state.cardsLeft) % siz
-        console.log("idx: ",idx)
         return idx        
     }
 
@@ -61,7 +56,6 @@ class Quiz extends Component {
     }
 
     showQ = (card) => {        
-        console.log("card.question: ",card.question)
         if (this.state.reveal){
             return (                
                 <Text style={styles.body}>{card.answer} </Text>
@@ -103,36 +97,21 @@ class Quiz extends Component {
     showQuestions = () => {
         let title = this.props.navigation.state.params.title
         let decks = this.state.decks
-        //console.log(decks)
 
         if (decks !== false && this.state.idx !== -1){
             let cards = decks[title].questions
 
             if (this.state.cardsLeft === 0){
-                console.log("it be over")
                 return this.quizOver()
-
             }
-            //console.log(decks[title].questions)
-            //console.log(decks[title].questions[0].answer)
-           //return decks[title].questions.map(card => this.showQ(card))
             let siz = cards.length
-        //    //console.log(siz)
-        //    let randIndex = Math.floor(Math.random() * siz)
-            
-        //    console.log("cardsleft: ",this.state.cardsLeft)
-        //    console.log("size: ",siz)
-           
-           //let idx = (randIndex + this.state.cardsLeft) % siz 
-           let idx = (this.state.idx + this.state.cardsLeft) % siz 
-            console.log("card at idx+cardsleft: ",cards[idx])
-           return this.showQ(cards[idx])
+            let idx = (this.state.idx + this.state.cardsLeft) % siz 
+            return this.showQ(cards[idx])
            
         }
     }
 
     scoreControls = () =>{
-        console.log("cardsleft: ",this.state.cardsLeft)
         return (
             <View style={styles.container}>
                 {this.state.isMounted && <View style={styles.adjacent}>
@@ -165,16 +144,7 @@ class Quiz extends Component {
             title={this.state.reveal ? 'Hide Answer':'Show Answer' }         
         />}
         {this.state.cardsLeft !== 0 && this.scoreControls()}
-        </View>
-        	
-// The Quiz view starts with a question from the selected deck.
-// The question is displayed, along with a button to show the answer.
-// Pressing the 'Show Answer' button displays the answer.
-// Buttons are included to allow the student to mark their guess as 'Correct' or 'Incorrect'
-// The view displays the number of questions remaining.
-// When the last question is answered, a score is displayed. This can be displayed as a percentage of correct answers or just the number of questions answered correctly.
-// When the score is displayed, buttons are displayed to either start the quiz over or go back to the Individual Deck view.
-// Both the 'Restart Quiz' and 'Back to Deck' buttons route correctly to their respective views.
+        </View>        	
       )
     }
   }
